@@ -26,6 +26,7 @@ async function login() {
                     },
                     function (data, status) {
                         console.log("Data: " + data + "\nStatus: " + status);
+                        alert('This was a ' + status + "! Check your inbox for the verification email");
                     });
 
 

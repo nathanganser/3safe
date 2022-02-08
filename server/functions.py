@@ -25,7 +25,7 @@ def mint_nft(address, email):
     resp = requests.post(url + '/v0/mints/easy/urls', headers=headers, json=json)
     data = resp.json()
     if data.get('error'):
-        return {"success": False, "message": data.get('error')}
+        return {"success": False, "message": data.get('error'), "what now?": "Seems like an error occured. It might be on my side or an issue with NFTPort. Not much you can do unfortunately..."}
     else:
         return {"success": True, "message": "Your NFT will be visible in a few minutes on https://3safe.vercel.app/"}
 
