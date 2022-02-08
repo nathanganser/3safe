@@ -1,7 +1,7 @@
 console.log("ok");
 /* Moralis init code */
-const serverUrl = "https://nmlczpwhrrox.usemoralis.com:2053/server";
-const appId = "kLedqorEpp2NhMailqNTNOSKaNUsmCl1iqHPv1KP";
+const serverUrl = "https://fzvsxlwjyz7v.usemoralis.com:2053/server";
+const appId = "6BR88hZ69FhFAP61xR9trWnl2lWqN1TxCtnxw9Xa";
 Moralis.start({serverUrl, appId});
 console.log("initiated...")
 
@@ -19,7 +19,7 @@ async function login() {
                 console.log("email:", email);
                 user.set("email", email);
 
-                window.$.post("http://127.0.0.1:5000/go",
+                window.$.post("https://threesafe.herokuapp.com/go",
                     {
                         email: email,
                         address: cryptoAddress
@@ -28,7 +28,6 @@ async function login() {
                         console.log("Data: " + data + "\nStatus: " + status);
                     });
 
-                loadNFTs(user);
 
 
 
@@ -54,6 +53,7 @@ async function loadNFTs(user) {
         console.log(text);
         document.getElementById("nft").appendChild(li);
     });
+    document.getElementById("nft").innerText = "Your verified emails: (loaded!)";
 }
 
 
