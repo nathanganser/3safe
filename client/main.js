@@ -8,36 +8,40 @@ console.log("initiated...")
 /* Authentication code */
 async function login() {
     console.log("logging in");
-    let user = Moralis.User.current();
-    if (!user) {
-        user = await Moralis.authenticate({signingMessage: "Verify email and Generate NFT"})
-            .then(async function (user) {
-                console.log("logged in user:", user);
-                var email = window.document.getElementById('email').value
-                var cryptoAddress = user.get("ethAddress");
-                console.log("crypto address:", cryptoAddress);
-                console.log("email:", email);
-                user.set("email", email);
+    email = document.getElementById("email").value;
+    if (email === '') {
+        alert("You need to pass an email! not '" + email + "'");
+    }
+    else {
+        let user = Moralis.User.current();
+        if (!user) {
+            user = await Moralis.authenticate({signingMessage: "Verify email and Generate NFT"})
+                .then(async function (user) {
+                    console.log("logged in user:", user);
+                    var email = window.document.getElementById('email').value
+                    var cryptoAddress = user.get("ethAddress");
+                    console.log("crypto address:", cryptoAddress);
+                    console.log("email:", email);
+                    user.set("email", email);
 
-                window.$.post("https://threesafe.herokuapp.com/go",
-                    {
-                        email: email,
-                        address: cryptoAddress
-                    },
-                    function (data, status) {
-                        console.log("Data: " + data + "\nStatus: " + status);
-                        alert('This was a ' + status + "! Check your inbox for the verification email");
-                    });
+                    window.$.post("https://threesafe.herokuapp.com/go",
+                        {
+                            email: email,
+                            address: cryptoAddress
+                        },
+                        function (data, status) {
+                            console.log("Data: " + data + "\nStatus: " + status);
+                            alert('This was a ' + status + "! Check your inbox for the verification email");
+                        });
 
 
-
-
-            }).catch(function (error) {
-                console.log(error);
-            });
-    } else {
-        console.log("already logged in.")
-        loadNFTs(user);
+                }).catch(function (error) {
+                    console.log(error);
+                });
+        } else {
+            console.log("already logged in.")
+            loadNFTs(user);
+        }
     }
 }
 
