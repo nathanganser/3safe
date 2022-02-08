@@ -40,20 +40,24 @@ async function login() {
     }
 }
 
-async function loadNFTs(user) {
-    console.log("getting nft..");
-    const options = {chain: 'polygon', address: user.get("ethAddress")};
-    const NFTs = await Moralis.Web3API.account.getNFTs(options);
-    console.log(NFTs['result']);
+async function loadNFTs() {
+    let user = Moralis.User.current();
+    if (user) {
+        console.log("getting nft..");
+        const options = {chain: 'polygon', address: user.get("ethAddress")};
+        const NFTs = await Moralis.Web3API.account.getNFTs(options);
+        console.log(NFTs['result']);
 
-    NFTs['result'].forEach(function(el) {
-        var li = document.createElement("li");
-        var text = document.createTextNode(JSON.parse(el.metadata).name);
-        li.appendChild(text);
-        console.log(text);
-        document.getElementById("nft").appendChild(li);
-    });
-    document.getElementById("nft").innerText = "Your verified emails: (loaded!)";
+        NFTs['result'].forEach(function (el) {
+            var li = document.createElement("li");
+            var text = document.createTextNode(JSON.parse(el.metadata).name);
+            li.appendChild(text);
+            console.log(text);
+            document.getElementById("nft").appendChild(li);
+        });
+        document.getElementById("nft").innerText = "Your verified emails: (loaded!)";
+    }
+    document.getElementById("nft").innerText = "Your verified emails: (verify NFT first!)";
 }
 
 
@@ -66,6 +70,6 @@ window.onload = function () {
 
     document.getElementById("btn-login").onclick = login;
     document.getElementById("btn-logout").onclick = logOut;
-
+    loadNFTs();
 
 }
