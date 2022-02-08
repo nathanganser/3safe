@@ -23,8 +23,8 @@ def hello_world():
 def ver(code, email, address):
     verified = verify_code(email, code)
     if verified:
-        mint_nft(address, email)
-        return jsonify(success=True, message="NFT minted!!")
+        resp = mint_nft(address, email)
+        return jsonify(resp)
     else:
         return jsonify(success=False)
 

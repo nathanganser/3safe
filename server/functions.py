@@ -23,7 +23,12 @@ def mint_nft(address, email):
         "mint_to_address": address
     }
     resp = requests.post(url + '/v0/mints/easy/urls', headers=headers, json=json)
-    print(resp.text)
+    data = resp.json()
+    if data.get('error'):
+        return {"success": False, "message": data.get('error')}
+    else:
+        return {"success": True, "message": "Your NFT will be visible in a few minutes on https://3safe.vercel.app/"}
+
 
 
 def generate_code(email):
