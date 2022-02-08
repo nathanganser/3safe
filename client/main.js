@@ -54,15 +54,24 @@ async function loadNFTs() {
         console.log(NFTs['result']);
 
         NFTs['result'].forEach(function (el) {
-            var li = document.createElement("li");
-            var text = document.createTextNode(JSON.parse(el.metadata).name);
-            li.appendChild(text);
-            console.log(text);
-            document.getElementById("nft").appendChild(li);
+            try
+            {
+                var li = document.createElement("li");
+                var text = document.createTextNode(JSON.parse(el.metadata).name);
+                li.appendChild(text);
+                console.log(text);
+                document.getElementById("nft-list").appendChild(li);
+            }
+            catch (e) {
+                console.log("passing");
+            }
         });
         document.getElementById("nft").innerText = "Your verified emails: (loaded!)";
     }
-    document.getElementById("nft").innerText = "Your verified emails: (verify NFT first!)";
+    else {
+        console.log(user);
+        document.getElementById("nft").innerText = "Your verified emails: (verify NFT first!)";
+    }
 }
 
 
