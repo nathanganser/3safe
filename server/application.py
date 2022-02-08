@@ -1,4 +1,4 @@
-from flask import Flask,request, jsonify
+from flask import Flask,request, jsonify, redirect
 from flask_cors import CORS
 import json
 import uuid
@@ -6,6 +6,10 @@ from functions import verify_code, mint_nft, generate_code, send_email
 
 app = Flask(__name__)
 CORS(app)
+
+@app.route("/")
+def hey():
+    return redirect("https://github.com/nathanganser/3safe")
 
 @app.route("/go", methods=['POST'])
 def hello_world():
@@ -29,5 +33,5 @@ def ver(code, email, address):
         return jsonify(success=False)
 
 
-
-app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=True)
